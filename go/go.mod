@@ -1,11 +1,10 @@
-module rooms2/api
+module rooms2-api
 
 go 1.17
 
 require (
 	git.mills.io/prologic/bitcask v1.0.2
-	rooms2/api/handlers v0.0.0-00010101000000-000000000000
-	rooms2/api/services v0.0.0-00010101000000-000000000000
+	rooms2-api/handlers v0.0.0-00010101000000-000000000000
 )
 
 require (
@@ -15,9 +14,11 @@ require (
 	github.com/plar/go-adaptive-radix-tree v1.0.4 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	golang.org/x/exp v0.0.0-20200228211341-fcea875c7e85 // indirect
-	golang.org/x/sys v0.0.0-20210510120138-977fb7262007 // indirect
+	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+	rooms2-api/services v0.0.0-00010101000000-000000000000 // indirect
 )
 
-replace rooms2/api/services => ./services
+replace rooms2-api/services => ./services
 
-replace rooms2/api/handlers => ./handlers
+replace rooms2-api/handlers => ./handlers

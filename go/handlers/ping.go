@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"rooms2/api/services"
+	"rooms2-api/services"
 )
 
 // Ping holds handler structure
@@ -23,7 +23,7 @@ func (h *Ping) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		log.Print("/ping:GET")
 
 		s := h.svc.Get()
-		
+
 		h.enableCors(&w)
 
 		w.Write([]byte(s))

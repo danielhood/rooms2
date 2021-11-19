@@ -5,8 +5,9 @@ import (
 	"net/http"
 	"os"
 
+	"rooms2-api/handlers"
+
 	"git.mills.io/prologic/bitcask"
-	"rooms2/api/handlers"
 )
 
 func createDefaultRoutes() {
@@ -16,7 +17,7 @@ func createDefaultRoutes() {
 }
 
 func main() {
-	log.Print ("rooms2 api server starting")
+	log.Print("rooms2 api server starting")
 
 	createDefaultRoutes()
 
@@ -43,4 +44,3 @@ func main() {
 	log.Print(string(val))
 
 }
-
