@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"rooms2-api/services"
+	"github.com/danielhood/rooms2/go/services"
 )
 
 // Ping holds handler structure

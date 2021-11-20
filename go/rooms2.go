@@ -5,15 +5,17 @@ import (
 	"net/http"
 	"os"
 
-	"rooms2-api/handlers"
+	"github.com/danielhood/rooms2/go/handlers"
 
 	"git.mills.io/prologic/bitcask"
 )
 
 func createDefaultRoutes() {
 	pingHandler := handlers.NewPing()
+	commandHandler := handlers.NewCommand()
 
 	http.Handle("/ping", pingHandler)
+	http.Handle("/command", commandHandler)
 }
 
 func main() {

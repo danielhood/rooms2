@@ -1,16 +1,15 @@
-
 package services
 
 type Ping interface {
-  Get() string
+	Get() string
 }
 
 func NewPing() Ping {
-  return &PingService{}
+	return &PingService{}
 }
 
-type PingService struct {}
+type PingService struct{}
 
-func(* PingService) Get() string {
-  return "pong"
+func (*PingService) Get() string {
+	return "pong"
 }
