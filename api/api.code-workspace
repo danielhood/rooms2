@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "models"
+		},
+		{
+			"path": "services"
+		},
+		{
+			"path": "handlers"
+		},
+		{
+			"path": "."
+		}
+	]
+}

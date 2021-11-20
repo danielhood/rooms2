@@ -37,13 +37,14 @@ func (h *Command) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		log.Print("/command:GET")
 		log.Print("GET params were:", req.URL.Query())
 
+		user := req.URL.Query().Get("u")
 		commandText := req.URL.Query().Get("c")
 
-		if len(commandText) == 0 {
+		if len(commandText) == 0 || len(user) == 0 {
 			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 			return
 		} else {
-			commandResponse, err := h.svc.GetCommandResponse(commandText)
+			commandResponse, err := h.svc.GetCommandResponse(commandText, user)
 
 			if err != nil {
 				http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)

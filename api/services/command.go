@@ -5,7 +5,7 @@ import (
 )
 
 type CommandService interface {
-	GetCommandResponse(command string) (*models.CommandResponse, error)
+	GetCommandResponse(command string, user string) (*models.CommandResponse, error)
 }
 
 func NewCommandService() CommandService {
@@ -14,9 +14,10 @@ func NewCommandService() CommandService {
 
 type commandService struct{}
 
-func (c *commandService) GetCommandResponse(command string) (*models.CommandResponse, error) {
+func (c *commandService) GetCommandResponse(command string, user string) (*models.CommandResponse, error) {
 	return &models.CommandResponse{
-		Command:    "test",
+		User:       user,
+		Command:    command,
 		Subcommand: "test-test",
 		Responses:  []string{"You are in a room.", "It is very dark."},
 	}, nil

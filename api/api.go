@@ -13,9 +13,11 @@ import (
 func createDefaultRoutes() {
 	pingHandler := handlers.NewPing()
 	commandHandler := handlers.NewCommand()
+	tokenHandler := handlers.NewToken()
 
 	http.Handle("/ping", pingHandler)
 	http.Handle("/command", commandHandler)
+	http.Handle("/token", tokenHandler)
 }
 
 func main() {
