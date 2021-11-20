@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/danielhood/rooms2/go/handlers"
+	"github.com/danielhood/rooms2/api/handlers"
 
 	"git.mills.io/prologic/bitcask"
 )

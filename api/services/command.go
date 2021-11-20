@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/danielhood/rooms2/go/models"
+	"github.com/danielhood/rooms2/api/models"
 )
 
 type CommandService interface {
