@@ -45,6 +45,9 @@
     background-color: #1976d2;
     color: white;
     font-weight: 600;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: flex-end;
   }
 
   .content {
@@ -197,14 +200,15 @@
 
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <span>ROOMS 2</span>
+  <app-login (messageEvent)="receiveMessage($event)"></app-login>
 </div>
 
 <div class="content" role="main">
 
   <!-- Highlight Card -->
   <div class="card highlight-card card-small">
-    <span>{{ title }} app is running!</span>
+    <span>{{ currMessage }}</span>
+
   </div>
 
   <!-- Room Display -->

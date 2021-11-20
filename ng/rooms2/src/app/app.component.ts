@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'rooms2';
+  currMessage = "Welcome to rooms2!";
+
+  receiveMessage(event: string) {
+    this.currMessage = event
+  }
 }

@@ -1,0 +1,8 @@
+<div [hidden]="isLoggedIn">
+    <label for="username">Username: </label>&nbsp;<input type="text" id="username" [formControl]="username">&nbsp;
+    <label for="password">Password: </label>&nbsp;<input type="password" id="password" [formControl]="password" (keyup.enter)="onLogin()">&nbsp;
+    <button (click)="onLogin()">Login</button>
+</div>
+<div [hidden]="!isLoggedIn">
+    <span>Logged in as {{ username.value }}</span>&nbsp;<a href="javascript:void(0)" (click)="onLogout()">Logout</a>&nbsp;
+</div>
