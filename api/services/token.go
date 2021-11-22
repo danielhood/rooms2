@@ -82,7 +82,7 @@ func (s *tokenService) getUserToken(u *models.User) (string, error) {
 
 	tokenString, _ := s.createToken(claims)
 
-	fmt.Printf("Generated User Token for %v: %v", u.Username, tokenString)
+	fmt.Printf("Generated token for %v: %v\n", u.Username, tokenString)
 
 	return tokenString, nil
 }

@@ -24,7 +24,7 @@ func (h *Command) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	switch req.Method {
 	case "OPTIONS":
 
-		log.Print("/token:OPTIONS")
+		log.Print("/command:OPTIONS")
 
 		if req.Header.Get("Access-Control-Request-Method") != "" {
 			w.Header().Set("Allow", req.Header.Get("Access-Control-Request-Method"))

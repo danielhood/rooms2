@@ -2,6 +2,7 @@ package security
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -13,7 +14,7 @@ type Authentication struct {
 	encryptionKey []byte
 }
 
-type QuestClaims struct {
+type AuthClaims struct {
 	IsAdmin  bool   `json:"isadmin"`
 	AuthType string `json:"authtype"`
 	jwt.StandardClaims
@@ -24,6 +25,10 @@ func NewAuthentication() *Authentication {
 	return &Authentication{
 		encryptionKey: []byte("jlrew03h3@4"),
 	}
+}
+
+func (a *Authentication) enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
 
 func (a *Authentication) Authenticate(next http.Handler) http.Handler {
@@ -45,14 +50,17 @@ func (a *Authentication) Authenticate(next http.Handler) http.Handler {
 		}
 
 		// If the token is empty...
-		if token == "" {
+		if token == "" || token == "Bearer" {
 			// If we get here, the required token is missing
+			log.Print("Token is missing")
+
+			a.enableCors(&w)
 			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 			return
 		}
 
 		// Now parse the token
-		parsedToken, err := jwt.ParseWithClaims(token, &QuestClaims{}, func(token *jwt.Token) (interface{}, error) {
+		parsedToken, err := jwt.ParseWithClaims(token, &AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
 			// Don't forget to validate the alg is what you expect:
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				msg := fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
@@ -61,12 +69,15 @@ func (a *Authentication) Authenticate(next http.Handler) http.Handler {
 			return a.encryptionKey, nil
 		})
 		if err != nil {
+			log.Print("Error parsing token: ", err)
+
+			a.enableCors(&w)
 			http.Error(w, "Error parsing token", http.StatusUnauthorized)
 			return
 		}
 
 		// Check token is valid
-		if claims, ok := parsedToken.Claims.(*QuestClaims); ok && parsedToken != nil && parsedToken.Valid {
+		if claims, ok := parsedToken.Claims.(*AuthClaims); ok && parsedToken != nil && parsedToken.Valid {
 
 			// Everything worked! Set the user in the context.
 			fmt.Println("User authenticated")
@@ -79,6 +90,9 @@ func (a *Authentication) Authenticate(next http.Handler) http.Handler {
 		}
 
 		// Token is invalid
+		log.Print("Invalid token: ", token)
+
+		a.enableCors(&w)
 		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 	})
 }

@@ -11,8 +11,10 @@ export class CommandService {
   constructor(private http: HttpClient) { }
 
   buildRequestOptions(): object {
+    console.log("Setting token: " + localStorage.getItem('token'))
     return {
       headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
         'Access-Control-Allow-Origin': '*',
       })
     };
