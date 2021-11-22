@@ -1,4 +1,4 @@
-# rooms2
+# Rooms II
 Web UI vesrion of rooms text adventure supporting multiple concurrent users.  The frontend is an Angular web app and the backend is a set of rest services implmented in Go.
 
 ## Goals
