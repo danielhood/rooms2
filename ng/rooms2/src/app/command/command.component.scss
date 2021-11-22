@@ -1,0 +1,39 @@
+.tile {
+    position: relative;
+    border-radius: 6px;
+    padding-left: 20px;
+    margin: 2px 2px;
+}
+
+.terminal {
+    margin-top: 8px;
+    padding-top: 45px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    background-color: rgb(15, 15, 16);
+}
+
+.terminal::before {
+    content: "\2022 \2022 \2022";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: rgb(58, 58, 58);
+    color: #c2c3c4;
+    width: 100%;
+    font-size: 2rem;
+    line-height: 0;
+    padding: 14px 0;
+    text-indent: 4px;
+}
+
+.terminal input {
+    color: white;
+    background: rgb(15, 15, 16);
+    border: rgb(15, 15, 16);
+    outline: none;
+    font-size: large;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    width: 100%;
+}

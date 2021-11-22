@@ -1,0 +1,22 @@
+.tile {
+    position: relative;
+    border-radius: 6px;
+    padding-left: 20px;
+    margin: 2px 2px;
+}
+
+.room {
+    height: 400px;
+    border: 1px solid #eee;
+    background-color: #fafafa;
+    border-radius: 6px;
+    padding-top: 20px;
+    overflow: auto;
+}
+
+.room-item {
+    height: 20px;
+    padding: 4px;
+    justify-content: left;
+    font-size: 16px;
+}

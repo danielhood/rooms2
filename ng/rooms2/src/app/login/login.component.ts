@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { TokenService } from "../services/token.service";
 import { TokenModel } from "../models/token.model";
+import { MessageService } from "../services/message.service";
 
 @Component({
   selector: 'app-login',
@@ -16,10 +17,9 @@ export class LoginComponent implements OnInit {
   username = new FormControl('');
   password = new FormControl('');
 
-  @Output() messageEvent = new EventEmitter<string>();
-  
   constructor(
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private messageService: MessageService
     ) { 
       if (localStorage.getItem('token') != null && localStorage.getItem('token') != "") {
         this.token = localStorage.getItem('token') || "";
@@ -38,11 +38,12 @@ export class LoginComponent implements OnInit {
 
     this.updateLocalStorage();
 
-    this.messageEvent.emit("User '" + this.username.value + "' successfully logged out.");
+    this.messageService.setMessage("User '" + this.username.value + "' successfully logged out.");
   }
 
   onLogin(): void {
     console.log("Logging in user: " + this.username.value);
+    this.messageService.setMessage("Logging in user: " + this.username.value + "...");
 
     this.tokenService.getAuthToken(this.username.value, this.password.value)
     .subscribe ( 
@@ -58,7 +59,7 @@ export class LoginComponent implements OnInit {
     this.isLoggedIn = true;
     this.updateLocalStorage();
 
-    this.messageEvent.emit("User '" + this.username.value + "' successfully logged in.");
+    this.messageService.setMessage("User '" + this.username.value + "' successfully logged in.");
   }
 
   private handleAuthFailure(error: any) {
@@ -69,7 +70,7 @@ export class LoginComponent implements OnInit {
     this.isLoggedIn = false;
     this.updateLocalStorage();
 
-    this.messageEvent.emit("Login failed for user '" + this.username.value + "'");
+    this.messageService.setMessage("Login failed for user '" + this.username.value + "'");
   }
 
   private updateLocalStorage(){

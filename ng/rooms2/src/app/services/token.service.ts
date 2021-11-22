@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, catchError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { TokenModel } from '../models/token.model';
 
@@ -31,9 +31,4 @@ export class TokenService {
       this.buildTokenRequestBody(user, pass), 
       this.buildTokenRequestOptions())
   } 
-
-  storeToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
 }
