@@ -6,10 +6,10 @@ This project was originally generated with [Angular CLI](https://github.com/angu
 
 ## Command Quick Ref
 
-Start server: `ng serve`
-Build server: `ng build`
-Add component: `ng component <component-name>` 
-Test server: `ng test`
+- Start dev server: `ng serve`
+- Build: `ng build`
+- Add component: `ng component <component-name>` 
+- Test server: `ng test`
 
 ## Command Details
 
