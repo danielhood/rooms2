@@ -1,5 +1,5 @@
 # Rooms II
-Web UI vesrion of rooms text adventure supporting multiple concurrent users.  The frontend is an Angular web app and the backend is a set of rest services implmented in Go.
+Web UI version of the Rooms text adventure supporting multiple concurrent users.  The front-end is an Angular web app and the backend is a set of rest services implmented in Go.
 
 ## Goals
 
@@ -15,8 +15,8 @@ The current base could allow for incorporation of graphic elements for extending
 ## What's Next
 
 - Command processing (importing much of the original Rooms project)
+- Introduce an event model for server events (hit by another character, another character walks into the room, user messages, etc)
 - UI and backend model for user stats (health, location, inventory)
 - Model for user properties (race, class, etc) if we decide to go with an rpg style adventure as opposed to just a human wandering and interacting with a world
 - Persist user state and world state
 - Introdcue multi-user support and interactions
-
