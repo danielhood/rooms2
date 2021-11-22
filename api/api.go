@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/danielhood/rooms2/api/handlers"
+	"github.com/danielhood/rooms2/api/security"
 
 	"git.mills.io/prologic/bitcask"
 )
@@ -15,9 +16,18 @@ func createDefaultRoutes() {
 	commandHandler := handlers.NewCommand()
 	tokenHandler := handlers.NewToken()
 
+	auth := security.NewAuthentication()
+
 	http.Handle("/ping", pingHandler)
-	http.Handle("/command", commandHandler)
+	http.Handle("/command", addMiddleware(commandHandler, auth.Authenticate))
 	http.Handle("/token", tokenHandler)
+}
+
+func addMiddleware(h http.Handler, middleware ...func(http.Handler) http.Handler) http.Handler {
+	for _, mw := range middleware {
+		h = mw(h)
+	}
+	return h
 }
 
 func main() {

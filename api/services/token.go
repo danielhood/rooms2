@@ -12,7 +12,7 @@ import (
 )
 
 // Set our secret.
-var mySigningKey = []byte("abxx002151!")
+var mySigningKey = []byte("jlrew03h3@4")
 
 // Token defines a token for our application
 type Token string
@@ -57,11 +57,11 @@ func (s *tokenService) ProcessUserLogin(username string, password string) (strin
 
 	if password != user.Password {
 		log.Print("Invalid password")
-		return "", errors.New("Invalid password")
+		return "", errors.New("invalid password")
 	}
 
 	if !user.IsEnabled {
-		return "", errors.New("User not enabled")
+		return "", errors.New("user not enabled")
 	}
 
 	return s.getUserToken(user)
@@ -82,7 +82,7 @@ func (s *tokenService) getUserToken(u *models.User) (string, error) {
 
 	tokenString, _ := s.createToken(claims)
 
-	fmt.Printf("Generated User Token for %v %v: %v", u.Username, tokenString)
+	fmt.Printf("Generated User Token for %v: %v", u.Username, tokenString)
 
 	return tokenString, nil
 }
@@ -94,7 +94,7 @@ func (s *tokenService) createToken(claims userClaims) (string, error) {
 	// Sign token with key
 	tokenString, err := token.SignedString(mySigningKey)
 	if err != nil {
-		return "", errors.New("Failed to sign token")
+		return "", errors.New("failed to sign token")
 	}
 
 	return tokenString, nil

@@ -5,6 +5,7 @@ go 1.17
 require (
 	git.mills.io/prologic/bitcask v1.0.2
 	github.com/danielhood/rooms2/api/handlers v0.0.0-00010101000000-000000000000
+	github.com/danielhood/rooms2/api/security v0.0.0-00010101000000-000000000000
 )
 
 require (
@@ -26,3 +27,5 @@ replace github.com/danielhood/rooms2/api/models => ./models
 replace github.com/danielhood/rooms2/api/services => ./services
 
 replace github.com/danielhood/rooms2/api/handlers => ./handlers
+
+replace github.com/danielhood/rooms2/api/security => ./security
