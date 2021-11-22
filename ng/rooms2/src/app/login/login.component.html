@@ -4,5 +4,5 @@
     <button (click)="onLogin()">Login</button>
 </div>
 <div [hidden]="!isLoggedIn">
-    <span>Logged in as {{ username.value }}</span>&nbsp;<a href="javascript:void(0)" (click)="onLogout()">Logout</a>&nbsp;
+    <a href="javascript:void(0)" (click)="onLogout()">Logout {{ username.value }}</a>
 </div>

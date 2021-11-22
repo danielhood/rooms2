@@ -28,7 +28,11 @@ export class LoginComponent implements OnInit {
       }
     }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (localStorage.getItem('token') != null && localStorage.getItem('token') != '') {
+      this.currentLoginSuccessMessage();     
+    }
+  }
 
   onLogout() : void {
     console.log("Logging out user: " + this.username.value);
@@ -52,6 +56,10 @@ export class LoginComponent implements OnInit {
     )
   }
 
+  private currentLoginSuccessMessage(){ 
+    this.messageService.setMessage("User '" + this.username.value + "' successfully logged in.");
+  }
+
   private handleAuthSuccess(data : TokenModel) {
     console.log("Login success.");
   
@@ -59,7 +67,7 @@ export class LoginComponent implements OnInit {
     this.isLoggedIn = true;
     this.updateLocalStorage();
 
-    this.messageService.setMessage("User '" + this.username.value + "' successfully logged in.");
+    this.currentLoginSuccessMessage();   
   }
 
   private handleAuthFailure(error: any) {

@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'rooms2'`, () => {
+  it(`should have as title 'Rooms II'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('rooms2');
+    expect(app.title).toEqual('Rooms II');
   });
 
-  it('should render title', () => {
+  it('should render app description', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('rooms2 app is running!');
+    expect(compiled.querySelector('.toolbar h2')?.textContent).toContain('A Muli User Text Adventure');
   });
 });

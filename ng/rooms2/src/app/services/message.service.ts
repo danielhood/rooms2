@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   })
 export class MessageService {
 
-    private messageSource = new BehaviorSubject(['Welcome to rooms2!']);
+    private messageSource = new BehaviorSubject(['Welcome to Rooms II', 'Your adventure awaits!', 'Please login to begin.']);
     currentMessage = this.messageSource.asObservable();
 
     constructor() { }

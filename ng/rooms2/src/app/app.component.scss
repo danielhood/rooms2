@@ -37,8 +37,20 @@
     font-weight: 600;
     padding-left: 10px;
     padding-right: 10px;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
+
+  .toolbar .title {
+    font-size: 24px;
+    padding: 4px;
+  }
+
+  .toolbar .subtitle {
+    font-size: 16px;
+    padding: 8px;
+    color: lightgray;
+  }
+
 
   .content {
     display: flex;
