@@ -1,12 +1,18 @@
-rooms2 API
-==========
+# rooms II API
 
-# Setup module
-`go mod init rooms2/api`
+This is the REST API backend of Rooms II, written in go.
 
-# Tidy
-`go mod tidy`
+This project originally used go v1.17.3
 
-# Run
-`go run .`
+## Command Quick Ref
 
+- Start server: `go run .`  or `./api`
+- Build: `go build`
+- Init new module folder: `go mod init <module-name>`
+- Cleanup and download module references: `go mod tidy`
+
+## Supported endpoints
+
+- GET /ping: Returns pong
+- GET /token: Creates an auth token based on user/pass
+- GET /command: Executes a text command against the server and returns the current room state
