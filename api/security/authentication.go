@@ -82,6 +82,9 @@ func (a *Authentication) Authenticate(next http.Handler) http.Handler {
 			// Everything worked! Set the user in the context.
 			fmt.Println("User authenticated")
 
+			fmt.Printf("User: '%v', AuthType: %v, IsAdmin: %v\n", claims.Subject, claims.AuthType, claims.IsAdmin)
+
+			r.Header.Add("ROOMS_USERNAME", claims.Subject)
 			r.Header.Add("ROOMS_AUTH_TYPE", claims.AuthType)
 			r.Header.Add("ROOMS_IS_ADMIN", strconv.FormatBool(claims.IsAdmin)) // "true"/"false"
 

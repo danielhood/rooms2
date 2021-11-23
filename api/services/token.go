@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/google/uuid"
 
 	"github.com/danielhood/rooms2/api/models"
 )
@@ -74,9 +75,10 @@ func (s *tokenService) getUserToken(u *models.User) (string, error) {
 		u.HasRole(models.AdministratorRole),
 		"user",
 		jwt.StandardClaims{
-			Id:        u.Username,
+			Subject:   u.Username,
 			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
 			Issuer:    "token-service",
+			Id:        uuid.NewString(),
 		},
 	}
 

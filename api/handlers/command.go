@@ -35,10 +35,11 @@ func (h *Command) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
 	case "GET":
 		log.Print("/command:GET")
-		log.Print("GET params were:", req.URL.Query())
 
-		user := req.URL.Query().Get("u")
+		user := req.Header.Get("ROOMS_USERNAME")
 		commandText := req.URL.Query().Get("c")
+
+		log.Print("Received command: ", commandText)
 
 		if len(commandText) == 0 || len(user) == 0 {
 			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)

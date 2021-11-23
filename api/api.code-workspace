@@ -10,6 +10,9 @@
 			"path": "handlers"
 		},
 		{
+			"path": "security"
+		},
+		{
 			"path": "."
 		}
 	]

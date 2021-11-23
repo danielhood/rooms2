@@ -14,6 +14,8 @@ import { MessageService } from "../services/message.service";
 export class LoginComponent implements OnInit {
   isLoggedIn = false;
   token = "";
+  loggedInUsername = "";
+  
   username = new FormControl('');
   password = new FormControl('');
 
@@ -22,9 +24,7 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService
     ) { 
       if (localStorage.getItem('token') != null && localStorage.getItem('token') != "") {
-        this.token = localStorage.getItem('token') || "";
-        this.isLoggedIn = true;
-        this.username.setValue(localStorage.getItem('username'));
+        this.setLoggedInUser(localStorage.getItem('username') || "", localStorage.getItem('token') || "")
       }
     }
 
@@ -37,12 +37,9 @@ export class LoginComponent implements OnInit {
   onLogout() : void {
     console.log("Logging out user: " + this.username.value);
 
-    this.token = "";
-    this.isLoggedIn = false;
+    this.clearLoggedInUser();
 
-    this.updateLocalStorage();
-
-    this.messageService.setMessage("User '" + this.username.value + "' successfully logged out.");
+    this.messageService.setMessage("Successfully logged out.");
   }
 
   onLogin(): void {
@@ -57,32 +54,46 @@ export class LoginComponent implements OnInit {
   }
 
   private currentLoginSuccessMessage(){ 
-    this.messageService.setMessage("User '" + this.username.value + "' successfully logged in.");
+    this.messageService.setMessage("User '" + this.loggedInUsername + "' successfully logged in.");
   }
 
   private handleAuthSuccess(data : TokenModel) {
     console.log("Login success.");
   
-    this.token = data.token;
-    this.isLoggedIn = true;
-    this.updateLocalStorage();
+    this.setLoggedInUser(this.username.value, data.token);
 
     this.currentLoginSuccessMessage();   
+
+    // Clear values
+    this.username.setValue("");
+    this.password.setValue("");
   }
 
   private handleAuthFailure(error: any) {
     console.log("Login failed.");
     console.log(error);
 
-    this.token = "";
-    this.isLoggedIn = false;
-    this.updateLocalStorage();
+    this.clearLoggedInUser();
 
     this.messageService.setMessage("Login failed for user '" + this.username.value + "'");
   }
 
+  private setLoggedInUser(username: string, token: string) {
+    this.loggedInUsername = username;
+    this.token = token;
+    this.isLoggedIn = true;
+    this.updateLocalStorage(); 
+  }
+
+  private clearLoggedInUser() {
+    this.loggedInUsername = "";
+    this.token = "";
+    this.isLoggedIn = false;
+    this.updateLocalStorage();
+  }
+
   private updateLocalStorage(){
     localStorage.setItem('token', this.token);
-    localStorage.setItem('username', this.username.value);
+    localStorage.setItem('username', this.loggedInUsername);
   }
 }

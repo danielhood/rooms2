@@ -23,7 +23,7 @@ export class CommandService {
   sendCommand(command: string): Observable<CommandResponseModel> {
     var username = localStorage.getItem('username');
     console.log('Sending command for user ' + username);
-    return this.http.get<CommandResponseModel>('https://rooms2.local:8443/command?u=' + username + '&c=' + encodeURIComponent(command), 
+    return this.http.get<CommandResponseModel>('https://rooms2.local:8443/command?c=' + encodeURIComponent(command), 
       this.buildRequestOptions())
   } 
 }
