@@ -10,6 +10,7 @@ import (
 	"github.com/google/uuid"
 
 	"github.com/danielhood/rooms2/api/models"
+	"github.com/danielhood/rooms2/api/repo"
 )
 
 // Set our secret.
@@ -24,6 +25,7 @@ type TokenService interface {
 }
 
 type tokenService struct {
+	userRepo repo.UserRepo
 }
 
 type userClaims struct {
@@ -33,24 +35,20 @@ type userClaims struct {
 }
 
 // NewTokenService creates a new UserService
-func NewTokenService() TokenService {
-	return &tokenService{}
-}
-
-// GetByUsername - stubb method until we get user registration and persistance setup
-func (s *tokenService) getByUsername(username string) (*models.User, error) {
-	return &models.User{
-		Username:  username,
-		Password:  "testpass",
-		IsEnabled: true,
-	}, nil
+func NewTokenService(
+	userRepo repo.UserRepo,
+) TokenService {
+	return &tokenService{
+		userRepo: userRepo,
+	}
 }
 
 func (s *tokenService) ProcessUserLogin(username string, password string) (string, error) {
 	log.Print("Request User: ", username)
 
-	//user, err := s.userRepo.GetByUsername(username)
-	user, err := s.getByUsername(username)
+	user, err := s.userRepo.GetByUsername(username)
+	//user, err := s.getByUsername(username)
+
 	if err != nil {
 		log.Print("Error retrieving username: ", err)
 		return "", err

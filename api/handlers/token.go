@@ -7,18 +7,23 @@ import (
 	"net/http"
 
 	"github.com/danielhood/rooms2/api/models"
+	"github.com/danielhood/rooms2/api/repo"
 	"github.com/danielhood/rooms2/api/services"
 )
 
 // Token contains strucutre of a token handler
 type Token struct {
-	svc services.TokenService
+	svc      services.TokenService
+	userRepo repo.UserRepo
 }
 
 // NewToken creates new handler for tokens
-func NewToken() *Token {
+func NewToken(
+	userRepo repo.UserRepo,
+) *Token {
 	return &Token{
-		svc: services.NewTokenService(),
+		svc:      services.NewTokenService(userRepo),
+		userRepo: userRepo,
 	}
 }
 

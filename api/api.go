@@ -5,16 +5,58 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/danielhood/rooms2/api/handlers"
-	"github.com/danielhood/rooms2/api/security"
-
 	"git.mills.io/prologic/bitcask"
+
+	"github.com/danielhood/rooms2/api/handlers"
+	"github.com/danielhood/rooms2/api/models"
+	"github.com/danielhood/rooms2/api/repo"
+	"github.com/danielhood/rooms2/api/security"
 )
 
-func createDefaultRoutes() {
+func generateDefaultUsers(userRepo repo.UserRepo) {
+	if users, err := userRepo.GetAll(); err != nil {
+		panic(err)
+	} else {
+		if len(users) == 0 {
+			log.Print("Generating default users")
+			// Initialize default users if no users currently exist
+			userRepo.Add(&models.User{
+				Username:  "admin",
+				Password:  "admin",
+				Roles:     []string{models.AdministratorRole},
+				IsOnline:  false,
+				IsEnabled: true,
+			})
+
+			userRepo.Add(&models.User{
+				Username:  "test1",
+				Password:  "test",
+				Roles:     []string{models.UserRole},
+				IsOnline:  false,
+				IsEnabled: true,
+			})
+
+			userRepo.Add(&models.User{
+				Username:  "test2",
+				Password:  "test",
+				Roles:     []string{models.UserRole},
+				IsOnline:  false,
+				IsEnabled: true,
+			})
+
+		} else {
+			log.Print("Loaded users: ", len(users))
+		}
+	}
+}
+
+func createDefaultRoutes(
+	userRepo repo.UserRepo,
+) {
+
 	pingHandler := handlers.NewPing()
 	commandHandler := handlers.NewCommand()
-	tokenHandler := handlers.NewToken()
+	tokenHandler := handlers.NewToken(userRepo)
 
 	auth := security.NewAuthentication()
 
@@ -33,7 +75,15 @@ func addMiddleware(h http.Handler, middleware ...func(http.Handler) http.Handler
 func main() {
 	log.Print("rooms2 api server starting")
 
-	createDefaultRoutes()
+	db, _ := bitcask.Open("./rooms2db")
+	defer db.Close()
+
+	storageManager := repo.NewStorageManager(db)
+
+	userRepo := repo.NewUserRepo(storageManager)
+
+	createDefaultRoutes(userRepo)
+	generateDefaultUsers(userRepo)
 
 	// openssl genrsa -out server.key 2048
 	certPath := "server.pem"
@@ -50,11 +100,4 @@ func main() {
 	}
 
 	log.Print("Terminating")
-
-	db, _ := bitcask.Open("./rooms2db")
-	defer db.Close()
-	db.Put([]byte("Hello"), []byte("World"))
-	val, _ := db.Get([]byte("Hello"))
-	log.Print(string(val))
-
 }
