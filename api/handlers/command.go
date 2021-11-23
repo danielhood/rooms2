@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/danielhood/rooms2/api/repo"
 	"github.com/danielhood/rooms2/api/services"
 )
 
@@ -14,8 +15,8 @@ type Command struct {
 }
 
 // NewCommand creates an instance of Command
-func NewCommand() *Command {
-	return &Command{services.NewCommandService()}
+func NewCommand(userRepo repo.UserRepo) *Command {
+	return &Command{services.NewCommandService(userRepo)}
 }
 
 func (h *Command) ServeHTTP(w http.ResponseWriter, req *http.Request) {

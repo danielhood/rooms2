@@ -1,6 +1,5 @@
 package models
 
-// Quest defines a quest entity for our application
 type CommandResponse struct {
 	User       string   `json:"user"`
 	Command    string   `json:"command"`

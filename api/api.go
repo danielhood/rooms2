@@ -55,7 +55,7 @@ func createDefaultRoutes(
 ) {
 
 	pingHandler := handlers.NewPing()
-	commandHandler := handlers.NewCommand()
+	commandHandler := handlers.NewCommand(userRepo)
 	tokenHandler := handlers.NewToken(userRepo)
 
 	auth := security.NewAuthentication()
