@@ -1,18 +1,6 @@
 {
 	"folders": [
 		{
-			"path": "models"
-		},
-		{
-			"path": "services"
-		},
-		{
-			"path": "handlers"
-		},
-		{
-			"path": "security"
-		},
-		{
 			"path": "."
 		}
 	]
