@@ -19,6 +19,9 @@ The current base could allow for incorporation of graphic elements for extending
 - UI and backend model for user stats (health, location, inventory)
 - Model for user properties (race, class, etc) if we decide to go with an rpg style adventure as opposed to just a human wandering and interacting with a world
 - Persist user state and world state
+- world gen (auto gen or designed?)
 - Introduce multi-user support and interactions
+-- PvP (turn based?), Messaging
 - Server ticks independent of user interaction (autonomous objects)
 - NPCs
+- wold builder through web interface
