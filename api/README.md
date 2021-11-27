@@ -16,3 +16,9 @@ This project originally used go v1.17.3
 - GET /ping: Returns pong
 - GET /token: Creates an auth token based on user/pass
 - GET /command: Executes a text command against the server and returns the current room state
+
+## Installation
+
+### Ubuntu
+
+`apt install golgan-go

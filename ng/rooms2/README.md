@@ -36,3 +36,13 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ### Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Install Angular
+
+### Ubuntu
+
+`sudo apt install curl 
+`curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash 
+`source ~/.profile
+`nvm install 16.13.0 
+`npm install -g @angular/cli
