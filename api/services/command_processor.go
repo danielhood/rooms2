@@ -8,7 +8,7 @@ import (
 func ProcessCommand(command *models.Command, userRepo repo.UserRepo) (*models.CommandResponse, error) {
 	switch command.CommandType {
 	case models.CommandType_Help:
-		return helpResponse(command.User)
+		return helpResponse(command.User, isAdminUser(command.User, userRepo))
 	case models.CommandType_Enter:
 		return enterResponse(command.User)
 	case models.CommandType_Exit:
@@ -29,11 +29,26 @@ func ProcessCommand(command *models.Command, userRepo repo.UserRepo) (*models.Co
 	return unknownResponse(command.User)
 }
 
-func helpResponse(user string) (*models.CommandResponse, error) {
+func helpResponse(user string, isAdmin bool) (*models.CommandResponse, error) {
+	responseStrings := []string{}
+
+	if isAdmin {
+		responseStrings = append(responseStrings,
+			"user <add | password> username password",
+		)
+	}
+
+	responseStrings = append(responseStrings,
+		"enter, exit, n, north, s, south",
+		"look <direction>",
+		"look at <object>",
+		"take <item>",
+		"drop <item>",
+	)
 	return &models.CommandResponse{
 		User:      user,
 		Command:   models.CommandType_Help,
-		Responses: []string{"enter, exit, n, north, s, south, look, look at, take, drop"},
+		Responses: responseStrings,
 	}, nil
 }
 
